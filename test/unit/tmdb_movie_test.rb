@@ -35,8 +35,8 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "find by title should return the full movie data when expand_results set to true" do
-    movie = TmdbMovie.find(:title => "Sin City", :limit => 1, :expand_results => true)
-    assert_movie_methodized(movie, 187)
+    movie = TmdbMovie.find(:title => "Iron Man", :limit => 1, :expand_results => true)
+    assert_movie_methodized(movie, 1726)
   end
   
   test "should raise exception if no arguments supplied to find" do
@@ -105,7 +105,10 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "TmdbMovie.new should raise error if supplied with raw data for movie that doesn't exist" do
-    Tmdb.expects(:api_call).with("movie", {id: "999999999999"}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie", {id: 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/images", {id: 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/releases", {id: 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/casts", {id: 999999999999}, nil).returns(nil)
     assert_raise ArgumentError do
       TmdbMovie.new({"id" => 999999999999}, true)
     end

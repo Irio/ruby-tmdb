@@ -2,27 +2,39 @@ def register_api_url_stubs
   unless(TEST_LIVE_API)
   
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_search.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "search/movie" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/search/movie" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_get_info.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "movie/" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/movie/" + ".*")).to_return(file)
+    end
+
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_posters.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + '/movie/\d+/images')).to_return(file)
+    end
+
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_releases.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + '/movie/\d+/releases')).to_return(file)
+    end
+
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_casts.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + '/movie/\d+/casts')).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_imdb_lookup.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "movie/tt" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/movie/tt" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "person_get_info.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "person/" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/person/" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "person_search.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "search/person" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/search/person" + ".*")).to_return(file)
     end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "incorrect_api_url.txt")) do |file|
-      stub_request(:get, Regexp.new(Tmdb.base_api_url + "Movie.blarg/" + ".*")).to_return(file)
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/Movie.blarg/" + ".*")).to_return(file)
     end
 
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "example_com.txt")) do |file|

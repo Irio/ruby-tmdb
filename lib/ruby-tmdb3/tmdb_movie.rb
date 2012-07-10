@@ -40,14 +40,22 @@ class TmdbMovie
   
   def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling movie unless :expand_results is false or the data is already complete
-    # (as determined by checking for the runtime property in the raw data)
-    if(expand_results && !raw_data.has_key?("runtime"))
+    # (as determined by checking for the posters property in the raw data)
+    if(expand_results && (!raw_data.has_key?("posters") || !raw_data['releases'] || !raw_data['cast']))
       begin
-        expanded_data = Tmdb.api_call("movie", {id: raw_data["id"].to_s}, language)
-      rescue RuntimeError => e
-        raise ArgumentError, "Unable to fetch expanded info for Movie ID: '#{raw_data["id"]}'" if expanded_data.nil?
+        movie_id              = raw_data['id']
+        raw_data              = Tmdb.api_call 'movie', { id: movie_id }, language
+        @images_data          = Tmdb.api_call("movie/images", {id: movie_id}, language)
+        @releases_data        = Tmdb.api_call('movie/releases', {id: movie_id}, language)
+        @cast_data            = Tmdb.api_call('movie/casts', {id: movie_id}, language)
+        raw_data['posters']   = @images_data['posters']
+        raw_data['backdrops'] = @images_data['backdrops']
+        raw_data['releases']  = @releases_data['countries']
+        raw_data['cast']      = @cast_data['cast']
+        raw_data['crew']      = @cast_data['crew']
+      rescue => e
+        raise ArgumentError, "Unable to fetch expanded infos for Movie ID: '#{movie_id}'" if @images_data.nil? || @releases_data.nil? || @cast_data.nil?
       end
-      raw_data = expanded_data
     end
     return Tmdb.data_to_object(raw_data)
   end

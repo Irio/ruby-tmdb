@@ -10,6 +10,17 @@ class Tmdb
   @@api_key = ""
   @@default_language = "en"
   @@api_response = {}
+
+  # TODO: Should be refreshed and cached from API 
+  CONFIGURATION = DeepOpenStruct.load({ "images" =>
+                    { 
+                      "base_url"        => "http://cf2.imgobject.com/t/p/", 
+                      "posters_sizes"   => ["w92", "w154", "w185", "w342", "w500", "original"],
+                      "backdrops_sizes" => ["w300", "w780", "w1280", "original"],
+                      "profiles_sizes"  => ["w45", "w185", "h632", "original"],
+                      "logos_sizes"     => ["w45", "w92", "w154", "w185", "w300", "w500", "original"]
+                    }
+  })
   
   def self.api_key
     @@api_key
@@ -28,12 +39,14 @@ class Tmdb
   end
   
   def self.base_api_url
-    "http://api.themoviedb.org/3/"
+    "http://api.themoviedb.org/3"
   end
   
   def self.api_call(method, data, language = @@default_language)
     raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
     raise ArgumentError, "Invalid data." if(data.nil? || (data.class != Hash))
+
+    method, action = method.split '/'
 
     data = {
       api_key:  Tmdb.api_key,
@@ -55,21 +68,17 @@ class Tmdb
     # Construct URL for queries with id
     if data.has_key?(:id)
       uri.query_values = query_values
-
-      url = Tmdb.base_api_url + method + "/" + data[:id].to_s + "?" + uri.query
-
     # Construct URL other queries
     else
       query_values = {
         query: CGI::escape(data[:query])
       }.merge(query_values)
-
       uri.query_values = query_values
-
-      url = Tmdb.base_api_url + method + "?" + uri.query
     end
+    url            = [Tmdb.base_api_url, method, data[:id], action].compact.join '/'
+    url_with_query = [url, uri.query].compact.join '?'
     
-    response = Tmdb.get_url(url)
+    response = Tmdb.get_url(url_with_query)
     if(response.code.to_i != 200)
       raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
     end
@@ -100,22 +109,20 @@ class Tmdb
   end
   
   def self.data_to_object(data)
-    object = DeepOpenStruct.load(data)
+    object          = DeepOpenStruct.load(data)
     object.raw_data = data
-    ["posters", "backdrops", "profile"].each do |image_array_name|
-      if(object.respond_to?(image_array_name))
-        image_array = object.send(image_array_name)
-        image_array.each_index do |x|
-          image_array[x] = image_array[x].image
-          image_array[x].instance_eval <<-EOD
-            def self.data
-              return Tmdb.get_url(self.url).body
-            end
-          EOD
+    ["posters", "backdrops"].each do |image_array_name|
+      image_array = Array object.send(image_array_name)
+      single_name = image_array_name.slice 0..-2 # singularize name
+      single_path = object.send "#{single_name}_path" # default poster/backdrop image
+      image_array << object.send("#{image_array_name.slice 0..-2}=", DeepOpenStruct.load({file_path: single_path}))
+      # build a struct containing availables sizes with their urls
+      image_array.each do |image|
+        urls = CONFIGURATION.images.send("#{image_array_name}_sizes").inject({}) do |hash, size|
+          hash[size] = {'url' => [CONFIGURATION.images.base_url, size, image.file_path].join}
+          hash
         end
-      end
-      if(object.profile)
-        object.profiles = object.profile
+        image.sizes = DeepOpenStruct.load urls
       end
     end
     unless(object.cast.nil?)

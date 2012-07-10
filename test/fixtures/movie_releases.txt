@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 23 Aug 2010 16:45:21 GMT
+Content-Type: text/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=20
+Status: 200 OK
+Cache-Control: public, max-age=21600
+X-Varnish: 2542127928 2542059531
+Age: 1000
+Via: 1.1 varnish
+X-Cache: HIT
+
+{"id":49517,"countries":[{"iso_3166_1":"GB","certification":"15","release_date":"2011-09-16"},{"iso_3166_1":"US","certification":"R","release_date":"2011-12-09"},{"iso_3166_1":"IE","certification":"","release_date":"2011-09-16"},{"iso_3166_1":"AU","certification":"","release_date":"2011-10-27"},{"iso_3166_1":"DE","certification":"12","release_date":"2011-11-10"},{"iso_3166_1":"SE","certification":"","release_date":"2011-12-25"},{"iso_3166_1":"FR","certification":"","release_date":"2012-02-08"},{"iso_3166_1":"HU","certification":"16 éven aluliak számára nem ajánlott","release_date":"2012-01-26"},{"iso_3166_1":"CZ","certification":"","release_date":"2012-02-02"},{"iso_3166_1":"PT","certification":"M12","release_date":"2011-12-22"},{"iso_3166_1":"IT","certification":"","release_date":"2011-09-05"},{"iso_3166_1":"AT","certification":"","release_date":"2012-02-02"}]}

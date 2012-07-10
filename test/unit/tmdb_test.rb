@@ -31,7 +31,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should return base API url" do
-    assert_equal "http://api.themoviedb.org/3/", Tmdb.base_api_url
+    assert_equal "http://api.themoviedb.org/3", Tmdb.base_api_url
   end
 
   test "get url returns a response object" do
@@ -48,7 +48,7 @@ class TmdbTest < Test::Unit::TestCase
     method = "search/movie"
     data = "hello"
     Tmdb.default_language = "es"
-    url = Tmdb.base_api_url + method + '?api_key=' + Tmdb.api_key + '&language=' + Tmdb.default_language + '&query=' + CGI::escape(data.to_s)
+    url = Tmdb.base_api_url + '/' + method + '?api_key=' + Tmdb.api_key + '&language=' + Tmdb.default_language + '&query=' + CGI::escape(data.to_s)
     mock_response = stub(:code => "200", :body => '{"page":1,"results":[],"total_pages":0,"total_results":0}')
     Tmdb.expects(:get_url).with(url).returns(mock_response)
     Tmdb.api_call(method, {query: data})
@@ -58,7 +58,7 @@ class TmdbTest < Test::Unit::TestCase
     method = "movie"
     data = "hello"
     language = "blah"
-    url = Tmdb.base_api_url + method + "?api_key=" + Tmdb.api_key + "&language=" + language + '&query=' + CGI::escape(data.to_s)
+    url = Tmdb.base_api_url + '/' + method + "?api_key=" + Tmdb.api_key + "&language=" + language + '&query=' + CGI::escape(data.to_s)
     mock_response = stub(:code => "200", :body => '{"page":1,"results":[],"total_pages":0,"total_results":0}')
     Tmdb.expects(:get_url).with(url).returns(mock_response)
     Tmdb.api_call(method, {query: data}, language)
@@ -89,6 +89,14 @@ class TmdbTest < Test::Unit::TestCase
     result = Tmdb.api_call("movie", {id: "187"})
     assert_kind_of Hash, result
     %w(original_title id).each do |item|
+      assert_not_nil result[item]
+    end
+  end
+
+  test "should perform movie API call with an action and return a single result" do
+    result = Tmdb.api_call("movie/images", {id: "187"})
+    assert_kind_of Hash, result
+    %w(posters id).each do |item|
       assert_not_nil result[item]
     end
   end
@@ -165,9 +173,7 @@ class TmdbTest < Test::Unit::TestCase
     test_data = {
       "backdrops" => [
         {
-          "image" => {
-            :test => 1
-          }
+          :test => 1
         }
       ]
     }
