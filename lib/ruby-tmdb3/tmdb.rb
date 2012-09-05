@@ -49,8 +49,8 @@ class Tmdb
     method, action = method.split '/'
 
     data = {
-      api_key:  Tmdb.api_key,
-      language: language
+      :api_key =>  Tmdb.api_key,
+      :language => language
     }.merge(data)
 
     # Addressable can only handle hashes whose values respond to to_str, so lets be nice and convert things.
@@ -71,7 +71,7 @@ class Tmdb
     # Construct URL other queries
     else
       query_values = {
-        query: CGI::escape(data[:query])
+        :query => CGI::escape(data[:query])
       }.merge(query_values)
       uri.query_values = query_values
     end
@@ -115,7 +115,7 @@ class Tmdb
       image_array = Array object.send(image_array_name)
       single_name = image_array_name.slice 0..-2 # singularize name
       single_path = object.send "#{single_name}_path" # default poster/backdrop image
-      image_array << object.send("#{image_array_name.slice 0..-2}=", DeepOpenStruct.load({file_path: single_path}))
+      image_array << object.send("#{image_array_name.slice 0..-2}=", DeepOpenStruct.load({:file_path => single_path}))
       # build a struct containing availables sizes with their urls
       image_array.each do |image|
         urls = CONFIGURATION.images.send("#{image_array_name}_sizes").inject({}) do |hash, size|

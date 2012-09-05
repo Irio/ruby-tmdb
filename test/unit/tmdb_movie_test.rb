@@ -93,22 +93,22 @@ class TmdbMovieTest < Test::Unit::TestCase
   end
   
   test "find should pass default language to Tmdb.api_call if language is not supplied" do
-    Tmdb.expects(:api_call).with("movie", {id: "1"}, Tmdb.default_language).twice
-    Tmdb.expects(:api_call).with("search/movie", {query: "1"}, Tmdb.default_language)
+    Tmdb.expects(:api_call).with("movie", {:id => "1"}, Tmdb.default_language).twice
+    Tmdb.expects(:api_call).with("search/movie", {:query => "1"}, Tmdb.default_language)
     TmdbMovie.find(:id => 1, :imdb => 1, :title => 1)
   end
   
   test "find should pass through language to Tmdb.api_call when language is supplied" do
-    Tmdb.expects(:api_call).with("movie", {id: "1"}, "foo").twice
-    Tmdb.expects(:api_call).with("search/movie", {query: "1"}, "foo")
+    Tmdb.expects(:api_call).with("movie", {:id => "1"}, "foo").twice
+    Tmdb.expects(:api_call).with("search/movie", {:query => "1"}, "foo")
     TmdbMovie.find(:id => 1, :imdb => 1, :title => 1, :language => "foo")
   end
   
   test "TmdbMovie.new should raise error if supplied with raw data for movie that doesn't exist" do
-    Tmdb.expects(:api_call).with("movie", {id: 999999999999}, nil).returns(nil)
-    Tmdb.expects(:api_call).with("movie/images", {id: 999999999999}, nil).returns(nil)
-    Tmdb.expects(:api_call).with("movie/releases", {id: 999999999999}, nil).returns(nil)
-    Tmdb.expects(:api_call).with("movie/casts", {id: 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie", {:id => 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/images", {:id => 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/releases", {:id => 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/casts", {:id => 999999999999}, nil).returns(nil)
     assert_raise ArgumentError do
       TmdbMovie.new({"id" => 999999999999}, true)
     end
@@ -117,7 +117,7 @@ class TmdbMovieTest < Test::Unit::TestCase
   private
     
     def assert_movie_methodized(movie, movie_id)
-      @movie_data = Tmdb.api_call("movie", {id: movie_id.to_s}, Tmdb.default_language)
+      @movie_data = Tmdb.api_call("movie", {:id => movie_id.to_s}, Tmdb.default_language)
       assert_equal @movie_data["adult"], movie.adult
       assert_equal @movie_data["budget"], movie.budget
       assert_equal @movie_data["homepage"], movie.homepage

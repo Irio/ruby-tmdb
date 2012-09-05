@@ -51,7 +51,7 @@ class TmdbTest < Test::Unit::TestCase
     url = Tmdb.base_api_url + '/' + method + "?api_key=" + Tmdb.api_key + "&language=" + language + '&query=' + CGI::escape(data.to_s)
     mock_response = stub(:code => "200", :body => '{"page":1,"results":[],"total_pages":0,"total_results":0}')
     Tmdb.expects(:get_url).with(url).returns(mock_response)
-    Tmdb.api_call(method, {query: data}, language)
+    Tmdb.api_call(method, {:query => data}, language)
   end
   
   test "api_call should raise exception if api_key is not set" do
@@ -64,7 +64,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform search/movie API call and return a Hash with an array of results" do
-    movies = Tmdb.api_call("search/movie", {query: "Transformers"})
+    movies = Tmdb.api_call("search/movie", {:query => "Transformers"})
     assert_kind_of Hash, movies
     assert_kind_of Array, movies["results"]
     movies["results"].each do |movie|
@@ -76,7 +76,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform movie API call and return a single result" do
-    result = Tmdb.api_call("movie", {id: "187"})
+    result = Tmdb.api_call("movie", {:id => "187"})
     assert_kind_of Hash, result
     %w(original_title id).each do |item|
       assert_not_nil result[item]
@@ -84,7 +84,7 @@ class TmdbTest < Test::Unit::TestCase
   end
 
   test "should perform movie API call with an action and return a single result" do
-    result = Tmdb.api_call("movie/images", {id: "187"})
+    result = Tmdb.api_call("movie/images", {:id => "187"})
     assert_kind_of Hash, result
     %w(posters id).each do |item|
       assert_not_nil result[item]
@@ -92,7 +92,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform Movie.imdbLookup API call and return a single result" do
-    result = Tmdb.api_call("movie", {id: "tt0401792"})
+    result = Tmdb.api_call("movie", {:id => "tt0401792"})
     assert_kind_of Hash, result
     %w(original_title id).each do |item|
       assert result[item]
@@ -100,7 +100,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform person API call and return a single result" do
-    result = Tmdb.api_call("person", {id: 287})
+    result = Tmdb.api_call("person", {:id => 287})
     assert_kind_of Hash, result
     %w(homepage id name).each do |item|
       assert_not_nil result[item]
@@ -108,7 +108,7 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "should perform search/person API call and return a Hash with an array of results" do
-    people = Tmdb.api_call("search/person", {query: "vince"})
+    people = Tmdb.api_call("search/person", {:query => "vince"})
     assert_kind_of Array, people["results"]
     people["results"].each do |person|
       assert_kind_of Hash, person
@@ -125,15 +125,15 @@ class TmdbTest < Test::Unit::TestCase
   end
   
   test "API call that finds no results should return nil" do
-    movies = Tmdb.api_call('search/movie', {query: "item_not_found"})
+    movies = Tmdb.api_call('search/movie', {:query => "item_not_found"})
     assert_nil movies
   end
   
   test "API call cache should not be changed when data altered in the receiving method" do
-    person = Tmdb.api_call("person", {id: 287})
+    person = Tmdb.api_call("person", {:id => 287})
     assert_not_nil person[person.keys[0]]
     person[person.keys[0]] = nil
-    person = Tmdb.api_call("person", {id: 287})
+    person = Tmdb.api_call("person", {:id => 287})
     assert_not_nil person[person.keys[0]]
   end
   
