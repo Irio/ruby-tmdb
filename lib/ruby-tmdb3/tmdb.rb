@@ -49,9 +49,10 @@ class Tmdb
     method, action = method.split '/'
 
     data = {
-      :api_key =>  Tmdb.api_key,
-      :language => language
+      :api_key =>  Tmdb.api_key
     }.merge(data)
+
+    data.merge!(:language => language) if language
 
     # Addressable can only handle hashes whose values respond to to_str, so lets be nice and convert things.
     query_values = {}
