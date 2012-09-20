@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Age: 0
+Cache-Control: public, max-age=0
+Content-Type: text/json;charset=utf-8
+Date: Sat, 01 Sep 2012 09:37:47 GMT
+Server: nginx
+Status: 200 OK
+Via: 1.1 varnish
+X-Varnish: 609086378
+
+{"page":1,"results":[{"adult":false,"backdrop_path":"/jxdSxqAFrdioKgXwgTs5Qfbazjq.jpg","id":10138,"original_title":"Iron Man 2","release_date":"2010-05-07","poster_path":"/zzwA2qnooGmrUyrcyTcPbd5WXqZ.jpg","popularity":175147.12,"title":"Iron Man 2","vote_average":7.6,"vote_count":163}],"total_pages":1,"total_results":1}
