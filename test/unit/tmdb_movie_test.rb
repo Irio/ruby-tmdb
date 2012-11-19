@@ -114,6 +114,7 @@ class TmdbMovieTest < Test::Unit::TestCase
     Tmdb.expects(:api_call).with("movie/images", {:id => 999999999999}, nil).returns(nil)
     Tmdb.expects(:api_call).with("movie/releases", {:id => 999999999999}, nil).returns(nil)
     Tmdb.expects(:api_call).with("movie/casts", {:id => 999999999999}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("movie/trailers", {:id => 999999999999}, nil).returns(nil)
     assert_raise ArgumentError do
       TmdbMovie.new({"id" => 999999999999}, true)
     end
