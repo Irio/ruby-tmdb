@@ -1,5 +1,6 @@
 def register_api_url_stubs  
   unless(TEST_LIVE_API)
+    
 
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_search.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "/search/movie" + ".*")).to_return(file)
@@ -12,7 +13,11 @@ def register_api_url_stubs
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_get_info.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "/movie/" + ".*")).to_return(file)
     end
-
+    
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_upcoming.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/movie/upcoming" + ".*")).to_return(file)
+    end
+    
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_posters.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + '/movie/\d+/images')).to_return(file)
     end
