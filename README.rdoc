@@ -27,6 +27,10 @@ For ease of use ruby-tmdb3 is packaged as a Rubygem. Installing it is as simple 
 
   gem install ruby-tmdb3
 
+=== Compatability
+
+Ruby 1.8.x & 1.9.x
+
 === Usage
 
 There are 3 main methods you can use to get information about movies and cast members:
@@ -92,6 +96,15 @@ Find an individual cast member via their TMDb ID:
 Get the info for a movie in French:
 
   @movie = TmdbMovie.find(:title => 'Sin City', :limit => 1, :language => "fr")
+
+=== Contributing
+
+ruby-tmdb3 is maintained to work under Ruby 1.8.x & 1.9.x. Please make sure it works under both.
+
+* Fork the repo.
+* Create a topic branch.
+* Push the topic branch to your fork.
+* Create a pull request.
 
 
 === Item information

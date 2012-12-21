@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Age: 0
+Cache-Control: public, max-age=0
+Content-Type: application/json;charset=utf-8
+Date: Thu, 06 Sep 2012 04:12:26 GMT
+ETag: "8672576f48eb67cc63e87d3661486671"
+Server: nginx
+Status: 200 OK
+Vary: Accept-Encoding
+Via: 1.1 varnish
+X-Cache: MISS
+X-Memc: HIT
+X-Memc-Age: 14978
+X-Memc-Key: /collection/10/images
+X-Varnish: 1235609328
+X-Varnish-Sid: tm-v-p-1200
+X-XSS-Protection: 1; mode=block
+Content-Length: 3779
+Connection: keep-alive
+
+{"id":10,"backdrops":[{"file_path":"/qCECROwx3TRUEgoZv2Mz2D723QC.jpg","width":1280,"height":720,"iso_639_1":"en","aspect_ratio":1.78,"vote_average":10.0,"vote_count":1},{"file_path":"/noKFlPn2GjuUounuxtmPnkRlZpa.jpg","width":1920,"height":1080,"iso_639_1":"en","aspect_ratio":1.78,"vote_average":7.0,"vote_count":3},{"file_path":"/d8duYyyC9J5T825Hg7grmaabfxQ.jpg","width":1920,"height":1080,"iso_639_1":null,"aspect_ratio":1.78,"vote_average":6.1,"vote_count":5},{"file_path":"/rgjAb1oUCzJk1U2WhtQt7gGu84U.jpg","width":1920,"height":1080,"iso_639_1":null,"aspect_ratio":1.78,"vote_average":5.666666666666667,"vote_count":6},{"file_path":"/3XwvVWP33yWOqwVlJCSZWC1Uy58.jpg","width":1280,"height":720,"iso_639_1":null,"aspect_ratio":1.78,"vote_average":4.625,"vote_count":4},{"file_path":"/8JLnshhK3pRzIup79skBpDGeGTC.jpg","width":1920,"height":1080,"iso_639_1":null,"aspect_ratio":1.78,"vote_average":4.625,"vote_count":4},{"file_path":"/oGf9FeB8coLGYVp3SMHjAR809Lv.jpg","width":1920,"height":1080,"iso_639_1":"en","aspect_ratio":1.78,"vote_average":4.0,"vote_count":8}],"posters":[{"file_path":"/ghd5zOQnDaDW1mxO7R5fXXpZMu.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":7.625,"vote_count":4},{"file_path":"/mEpQbsUSekbQRdffXMeQWjeHb34.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":6.833333333333333,"vote_count":3},{"file_path":"/y6oGacKFP025f0PVwG94X60jjQS.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":6.571428571428571,"vote_count":7},{"file_path":"/1P7V1kM2Wx5LUyrUzszt7CXXXb7.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":5.25,"vote_count":2},{"file_path":"/4UN49ltU7l7F69cSFIbPLTAg6DT.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":5.25,"vote_count":2},{"file_path":"/gq5Wi7i4SF3lo4HHkJasDV95xI9.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":5.0,"vote_count":2},{"file_path":"/aLDdG5e3c2qNMcWzlxAnW15okOr.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":5.0,"vote_count":2},{"file_path":"/klv4rvIxnyJcZAI3DFvW5gHTSpM.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":4.666666666666667,"vote_count":6},{"file_path":"/mWAfAZVaw9mOOFEpaPwJHRENPza.jpg","width":900,"height":1200,"iso_639_1":"fr","aspect_ratio":0.75,"vote_average":3.5833333333333335,"vote_count":6},{"file_path":"/me843ySolO7vwJqQcJ6OUbcRM3H.jpg","width":1027,"height":1437,"iso_639_1":"ru","aspect_ratio":0.71,"vote_average":3.25,"vote_count":2},{"file_path":"/fdmSovGcTO4qeYH4llwqDsYi5cB.jpg","width":500,"height":713,"iso_639_1":"en","aspect_ratio":0.7,"vote_average":2.7,"vote_count":5},{"file_path":"/eZ13QTc85QD2VLDbwGmxrMLRPd5.jpg","width":1000,"height":1505,"iso_639_1":"en","aspect_ratio":0.66,"vote_average":0.75,"vote_count":2},{"file_path":"/vkZ7m5UemTsiQoxhT6u3KX0SJsr.jpg","width":670,"height":945,"iso_639_1":"en","aspect_ratio":0.71,"vote_average":0.75,"vote_count":2},{"file_path":"/5UH606AITCZt5Q0l6ovLyD3zsif.jpg","width":1000,"height":1500,"iso_639_1":"hu","aspect_ratio":0.67,"vote_average":0.5,"vote_count":1},{"file_path":"/ssxXzbpxQtaa20qcl3Z2vHEKwmm.jpg","width":1000,"height":1500,"iso_639_1":"en","aspect_ratio":0.67,"vote_average":0.5,"vote_count":2},{"file_path":"/19TftiQiOnClPfc4sfuSs2tfqY9.jpg","width":670,"height":941,"iso_639_1":"en","aspect_ratio":0.71,"vote_average":0.5,"vote_count":2},{"file_path":"/ui6EhLps52ZzINfrpJUj3VbO8k1.jpg","width":1528,"height":2185,"iso_639_1":"en","aspect_ratio":0.7,"vote_average":0.5,"vote_count":1},{"file_path":"/cgguiq6qIFjQqo3K1iIOpWlMKpO.jpg","width":600,"height":774,"iso_639_1":"es","aspect_ratio":0.78,"vote_average":0.0,"vote_count":0}]}[jmaddox@desky ~/Desktop]$ 

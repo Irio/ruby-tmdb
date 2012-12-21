@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Age: 0
+Cache-Control: public, max-age=0
+Content-Type: application/json;charset=utf-8
+Date: Thu, 06 Sep 2012 04:12:09 GMT
+ETag: "c42af9592b5c537fda92f13b473f07ff"
+Server: nginx
+Status: 200 OK
+Vary: Accept-Encoding
+Via: 1.1 varnish
+X-Cache: MISS
+X-Memc: HIT
+X-Memc-Age: 166193
+X-Memc-Key: /collection/10?language=en
+X-Varnish: 1235605843
+X-Varnish-Sid: tm-v-p-1200
+X-XSS-Protection: 1; mode=block
+Content-Length: 1479
+Connection: keep-alive
+
+{"id":10,"name":"Star Wars Collection","poster_path":"/ghd5zOQnDaDW1mxO7R5fXXpZMu.jpg","backdrop_path":"/qCECROwx3TRUEgoZv2Mz2D723QC.jpg","parts":[{"title":"Star Wars: Episode IV - A New Hope","id":11,"release_date":"1977-05-25","poster_path":"/tvSlBzAdRE29bZe5yYWrJ2ds137.jpg","backdrop_path":"/4iJfYYoQzZcONB9hNzg0J0wWyPH.jpg"},{"title":"Star Wars: Episode V - The Empire Strikes Back","id":1891,"release_date":"1980-05-21","poster_path":"/dKz98Lyda4m1QaUUUsUpXFpYCXN.jpg","backdrop_path":"/AkE7LQs2hPMG5tpWYcum847Knre.jpg"},{"title":"Star Wars: Episode VI - Return of the Jedi","id":1892,"release_date":"1983-05-25","poster_path":"/jx5p0aHlbPXqe3AH9G15NvmWaqQ.jpg","backdrop_path":"/bvJOpyHYWACDusvQvXxKEHFNjce.jpg"},{"title":"Star Wars: Episode I - The Phantom Menace","id":1893,"release_date":"1999-05-19","poster_path":"/n8V09dDc02KsSN6Q4hC2BX6hN8X.jpg","backdrop_path":"/rtG5TRrQXf11jlO9WqcYTq46jKa.jpg"},{"title":"Star Wars: Episode II - Attack of the Clones","id":1894,"release_date":"2002-05-16","poster_path":"/2vcNFtrZXNwIcBgH5e2xXCmVR8t.jpg","backdrop_path":"/560F7BPaxRy8BsOfVU6cW4ivM46.jpg"},{"title":"Star Wars: Episode III - Revenge of the Sith","id":1895,"release_date":"2005-05-19","poster_path":"/tgr5Pdy7ehZYBqBkN2K7Q02xgOb.jpg","backdrop_path":"/zHrxWn6P6Zjip9fJmmuEbzDd76o.jpg"},{"title":"Star Wars: The Clone Wars","id":12180,"release_date":"2008-08-15","poster_path":"/xd6yhmtS6mEURZLwUDT5raEMbf.jpg","backdrop_path":"/gmLMaDXi4lFWG8WitaCYOJS5GtL.jpg"}]}

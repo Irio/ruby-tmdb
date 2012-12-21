@@ -32,6 +32,18 @@ def register_api_url_stubs
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "movie_imdb_lookup.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "/movie/tt" + ".*")).to_return(file)
     end
+
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "collection_get_info.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/collection/" + ".*")).to_return(file)
+    end
+
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "collection_posters.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + '/collection/\d+/images')).to_return(file)
+    end
+
+    File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "blank_result.txt")) do |file|
+      stub_request(:get, Regexp.new(Tmdb.base_api_url + "/collection/item_not_found")).to_return(file)
+    end
     
     File.open(File.join(File.dirname(__FILE__), "..", "fixtures", "person_get_info.txt")) do |file|
       stub_request(:get, Regexp.new(Tmdb.base_api_url + "/person/" + ".*")).to_return(file)

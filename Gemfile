@@ -5,7 +5,7 @@ gem 'json'
 gem 'addressable'
 
 group :development do
-  gem 'mocha', require: false
+  gem 'mocha', :require => false
   gem 'jeweler'
   gem 'webmock'
 end
