@@ -104,7 +104,7 @@ class Tmdb
     response = Tmdb.post_url(url_with_query, query_values) if post
     
     if(response.code.to_i != 200 && response.code.to_i != 201)
-      raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
+      raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url_with_query}'"
     end
 
     body = JSON(response.body)
