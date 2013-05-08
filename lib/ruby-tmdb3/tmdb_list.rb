@@ -52,7 +52,7 @@ class TmdbList
   end
   
   def self.popular(page = 1, language = nil)
-    data = Tmdb.api_call("movie/upcoming", {:page => page}, language)
+    data = Tmdb.api_call("movie/popular", {:page => page}, language)
     return TmdbList.new(data)
   end
   
