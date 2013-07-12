@@ -1,4 +1,7 @@
 *.gem
 .rvmrc
 .rbenv-version
+.ruby-version
+.ruby-gemset
+/.idea
 .DS_Store

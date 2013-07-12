@@ -4,7 +4,7 @@ require 'rubygems'
 require 'test/unit'
 require 'mocha/setup'
 
-unless(TEST_LIVE_API)
+unless TEST_LIVE_API
   require 'webmock/test_unit'
   include WebMock::API
 end

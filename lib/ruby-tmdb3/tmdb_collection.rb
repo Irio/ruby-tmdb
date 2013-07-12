@@ -6,11 +6,11 @@ class TmdbCollection
       :language       => Tmdb.default_language
     }.merge(options)
     
-    raise ArgumentError, "Should have: id" if(options[:id].nil?)
+    raise ArgumentError, 'Should have: id' if(options[:id].nil?)
     
     results = []
-    unless(options[:id].nil? || options[:id].to_s.empty?)
-      results << Tmdb.api_call("collection", {:id => options[:id].to_s}, options[:language])
+    unless options[:id].nil? || options[:id].to_s.empty?
+      results << Tmdb.api_call('collection', {:id => options[:id].to_s}, options[:language])
     end
     
     results.flatten!(1)
@@ -19,7 +19,7 @@ class TmdbCollection
         
     results.map!{|m| TmdbCollection.new(m, options[:expand_results], options[:language])}
     
-    if(results.length == 1)
+    if results.length == 1
       return results.first
     else
       return results
@@ -29,11 +29,11 @@ class TmdbCollection
   def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling collection unless :expand_results is false or the data is already complete
     # (as determined by checking for the posters property in the raw data)
-    if(expand_results && (!raw_data.has_key?("posters") || !raw_data['releases'] || !raw_data['cast']))
+    if expand_results && (!raw_data.has_key?('posters') || !raw_data['releases'] || !raw_data['cast'])
       begin
         collection_id         = raw_data['id']
         raw_data              = Tmdb.api_call 'collection', { :id => collection_id }, language
-        @images_data          = Tmdb.api_call("collection/images", {:id => collection_id}, language)
+        @images_data          = Tmdb.api_call('collection/images', {:id => collection_id}, language)
         raw_data['posters']   = @images_data['posters']
         raw_data['backdrops'] = @images_data['backdrops']
       rescue => e
@@ -44,8 +44,7 @@ class TmdbCollection
   end
   
   def ==(other)
-    return false unless(other.is_a?(TmdbCollection))
-    return @raw_data == other.raw_data
+    other.is_a?(TmdbCollection) ? @raw_data == other.raw_data : false
   end
     
 end
