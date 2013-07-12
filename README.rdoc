@@ -114,7 +114,7 @@ To find out more about the information each object offers on retrieved items hav
 === Author & Credits
 
 Authors:: {Irio Irineu Musskopf Junior}[mailto:iirineu@gmail.com], {Aaron Gough}[mailto:aaron@aarongough.com]
-Contributors:: {Alex Hayes}[https://github.com/alexhayes], {Alvaro Pereyra Rabanal}[https://github.com/xenda], {Linus Oleander}[https://github.com/oleander], {aristides}[https://github.com/aristides], {Robin Boutros}[https://github.com/niuage], {Loïc Guitaut}[https://github.com/Flink]
+Contributors:: {Alex Hayes}[https://github.com/alexhayes], {Alvaro Pereyra Rabanal}[https://github.com/xenda], {Linus Oleander}[https://github.com/oleander], {aristides}[https://github.com/aristides], {Robin Boutros}[https://github.com/niuage], {Loïc Guitaut}[https://github.com/Flink], {Marcel Scherf}[https://github.com/the-architect]
 
 Copyright (c) 2012 {Irio Irineu Musskopf Junior}[http://irio.posterous.com/] ({irio.posterous.com}[http://irio.posterous.com/])
 
