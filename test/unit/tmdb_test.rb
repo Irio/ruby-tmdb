@@ -26,9 +26,11 @@ class TmdbTest < Test::Unit::TestCase
   test 'should allow setting and getting of language' do
     old_language = Tmdb.default_language
     new_language = 'blah'
+
+    assert new_language != old_language
+
     Tmdb.default_language = new_language
     assert_equal new_language, Tmdb.default_language
-    refute_equal new_language, old_language
   end
   
   test 'should return base API url' do
