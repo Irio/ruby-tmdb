@@ -1,4 +1,4 @@
-require "rubygems"
+require 'rubygems'
 
 require_files = []
 require_files.concat Dir[File.join(File.dirname(__FILE__), 'ruby-tmdb3', '*.rb')]

@@ -5,20 +5,21 @@ class Tmdb
   require 'cgi'
   require 'json'
   require 'deepopenstruct'
-  require "addressable/uri"
+  require 'addressable/uri'
   
-  @@api_key = ""
-  @@default_language = "en"
+  @@api_key = ''
+  @@default_language = 'en'
+  @@default_search_type = 'phrase'
   @@api_response = {}
 
   # TODO: Should be refreshed and cached from API 
-  CONFIGURATION = DeepOpenStruct.load({ "images" =>
+  CONFIGURATION = DeepOpenStruct.load({ 'images' =>
                     { 
-                      "base_url"        => "http://cf2.imgobject.com/t/p/", 
-                      "posters_sizes"   => ["w92", "w154", "w185", "w342", "w500", "original"],
-                      "backdrops_sizes" => ["w300", "w780", "w1280", "original"],
-                      "profiles_sizes"  => ["w45", "w185", "h632", "original"],
-                      "logos_sizes"     => ["w45", "w92", "w154", "w185", "w300", "w500", "original"]
+                      'base_url' => 'http://cf2.imgobject.com/t/p/',
+                      'posters_sizes' => %w(w92 w154 w185 w342 w500 original),
+                      'backdrops_sizes' => %w(w300 w780 w1280 original),
+                      'profiles_sizes' => %w(w45 w185 h632 original),
+                      'logos_sizes' => %w(w45 w92 w154 w185 w300 w500 original)
                     }
   })
   
@@ -37,14 +38,22 @@ class Tmdb
   def self.default_language=(language)
     @@default_language = language
   end
+
+  def self.default_search_type
+    @@default_search_type
+  end
+
+  def self.default_search_type=(search_type)
+    @@default_search_type = search_type
+  end
   
   def self.base_api_url
-    "http://api.themoviedb.org/3"
+    'http://api.themoviedb.org/3'
   end
   
   def self.api_call(method, data, language = nil)
-    raise ArgumentError, "Tmdb.api_key must be set before using the API" if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
-    raise ArgumentError, "Invalid data." if(data.nil? || (data.class != Hash))
+    raise ArgumentError, 'Tmdb.api_key must be set before using the API' if(Tmdb.api_key.nil? || Tmdb.api_key.empty?)
+    raise ArgumentError, 'Invalid data.' if(data.nil? || (data.class != Hash))
 
     method, action = method.split '/'
 
@@ -80,12 +89,12 @@ class Tmdb
     url_with_query = [url, uri.query].compact.join '?'
     
     response = Tmdb.get_url(url_with_query)
-    if(response.code.to_i != 200)
+    if response.code.to_i != 200
       raise RuntimeError, "Tmdb API returned status code '#{response.code}' for URL: '#{url}'"
     end
 
     body = JSON(response.body)
-    if body.has_key?("results") && body["results"].empty?
+    if body.has_key?('results') && body['results'].empty?
       return nil
     else
       return body
@@ -98,21 +107,21 @@ class Tmdb
     begin 
       response = Net::HTTP.get_response(URI.parse(uri_str))
     rescue SocketError, Errno::ENETDOWN
-      response = Net::HTTPBadRequest.new( '404', 404, "Not Found" )
+      response = Net::HTTPBadRequest.new( '404', 404, 'Not Found')
       return response
     end 
     case response
       when Net::HTTPSuccess     then response
       when Net::HTTPRedirection then get_url(response['location'], limit - 1)
     else
-      Net::HTTPBadRequest.new( '404', 404, "Not Found" )
+      Net::HTTPBadRequest.new( '404', 404, 'Not Found')
     end
   end
   
   def self.data_to_object(data)
     object          = DeepOpenStruct.load(data)
     object.raw_data = data
-    ["posters", "backdrops"].each do |image_array_name|
+    %w(posters backdrops).each do |image_array_name|
       image_array = Array object.send(image_array_name)
       single_name = image_array_name.slice 0..-2 # singularize name
       single_path = object.send "#{single_name}_path" # default poster/backdrop image
@@ -126,7 +135,7 @@ class Tmdb
         image.sizes = DeepOpenStruct.load urls
       end
     end
-    unless(object.cast.nil?)
+    unless object.cast.nil?
       object.cast.each_index do |x|
         object.cast[x].instance_eval <<-EOD
           def self.bio
