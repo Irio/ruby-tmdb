@@ -10,7 +10,12 @@ require_files.each do |file|
 end
 
 class DirectRequireTest < Test::Unit::TestCase
+  
+  def setup
 
+    Tmdb.rate_limit_time = 0
+  end
+  
   test "TmdbMovie should not raise exception when directly required without using rubygems" do
     Tmdb.stubs(:api_call).returns([])
     assert_nothing_raised do

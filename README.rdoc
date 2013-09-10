@@ -22,8 +22,15 @@ Ruby 1.8.x & 1.9.x (2.0.x experimental)
   # setup your API key
   Tmdb.api_key = "t478f8de5776c799de5a"
 
+  # (optional) setup your base url. This is provided for testing purposes by apiary.io when logged in.
+  # They provide a request and response log you can view from the web.
+  Tmdb.base_api_url = "http://private-xxxxx-themoviedb.apiary.io/3"
+
   # setup your default language
   Tmdb.default_language = "en"
+
+  # change your rate limit. Default is 0.34
+  Tmdb.rate_limit_time = 0.34
 
   @movie = TmdbMovie.find(:title => "Iron Man", :limit => 1)
   # => <OpenStruct>
@@ -52,6 +59,29 @@ Parameters:
 
 You must supply at least one of :id, :title, or :imdb. All other parameters are optional.
 
+==== TmdbMovie.set_rating(id, rating, [:session_id])
+
+[:id]              Specifies an individual movie via it's TMDb id
+[:rating]          What you want to set the rating to.
+[:session_id]      (optional) If you don't have a session id it will be provided after the first requet. One session_id should be used per user.
+
+  status_code, session_id, message = TmdbMovie.set_rating(1, 7.9)
+  > status_code
+  => 1
+  > session_id
+  => "1234"
+  > message
+  => "success"
+
+
+  status_code, session_id, message = TmdbMovie.set_rating(2, 7.9, session_id: "1234")
+  > status_code
+  => 1
+  > session_id
+  => "1234"
+  > message
+  => "success"
+
 ==== TmdbCast.find([:id, :name, :limit, :expand_results, :language])
 
 Find information about an individual cast member, or a set of cast members sharing similar names, eg:
@@ -66,6 +96,50 @@ Find information about an individual cast member, or a set of cast members shari
 
 You must supply at least one of :id or :name. All other parameters are optional.
 
+==== TmdbList
+
+TmdbList is a class with 5 main methods
+
+  list = TmdbList.upcoming
+  list = TmdbList.now_playing
+  list = TmdbList.top_rated
+  list = TmdbList.popular
+  list = TmdbList.changes
+
+Each method except changes has an optional page and language arguments.
+
+  list = TmdbList.popular(2,"EN")
+
+TmdbList.changes only has an options hash and the TmdbList:Movie objects are only populated with an id.
+  
+  list = TmdbList.changes({page: 1, start_date: '2012-03-25', end_date: '2012-03-25', language: 'EN'})
+  
+[:page]            Each page returns 100 results
+[:start_date]      Sets the start date for when a change occured
+[:end_date]        Sets the end date for when a change occured
+[:language]        See TmdbMovie
+
+All parameters are optional. The defaults are {page: 1, start_date: Time.now.strftime("%Y-%m-%d"), end_date: (Time.now+60*60*24).strftime("%Y-%m-%d"), language: "EN" }
+
+
+A TmdbList instance has theses accessors
+
+  attr_accessor :page, :total_pages, :total_results, :movies_data, :movies
+
+And these methods
+
+  list.movie_ids #mapped array of movie id's
+
+an array of tmdb movie ids.
+  list.movie_ids
+the original json data returned from tmdb.
+  list.movies_data 
+an array of TmdbList::Movie objects.
+  list.movies 
+
+A TmdbList::Movie object has these accessors.
+  
+  attr_accessor :backdrop_path, :id, :original_title, :release_date, :poster_path, :title, :vote_average, :vote_count
 
 === Usage Examples
 

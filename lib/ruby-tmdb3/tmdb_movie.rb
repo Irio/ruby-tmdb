@@ -1,5 +1,23 @@
 class TmdbMovie
   
+  def self.set_rating(id, rating, options = {})
+    options = {
+      :session_id => nil,
+      :language       => Tmdb.default_language
+    }.merge(options)
+    session_id = options[:session_id]
+    unless session_id
+      response = Tmdb.api_call("authentication/guest_session/new", {}, options[:language])
+      session_id = response["guest_session_id"]
+    end
+    response = Tmdb.api_call("movie/rating", {:id=> id, :guest_session_id=> session_id, :value=> rating}, options[:language], true)
+    return {
+      :status_code=> response["status_code"], 
+      :session_id=> session_id, 
+      :status_message=> response["status_message"]
+    }
+  end
+  
   def self.find(options)
     options = {
       :expand_results => true,

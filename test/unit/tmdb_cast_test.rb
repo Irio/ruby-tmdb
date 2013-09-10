@@ -4,6 +4,7 @@ class TmdbCastTest < Test::Unit::TestCase
 
   def setup
     register_api_url_stubs
+    Tmdb.rate_limit_time = 0
   end
 
   test "search that returns no results should create empty array" do
@@ -21,6 +22,11 @@ class TmdbCastTest < Test::Unit::TestCase
   test "find by id should return full cast data" do
     cast = TmdbCast.find(:id => 287)
     assert_cast_methodized(cast, 287)
+  end
+  
+  test "each cast member should include poster data" do
+    cast = TmdbCast.find(:id => 287)
+    assert_kind_of Array, cast.posters
   end
 
   test "two cast objects with same data should be equal" do
@@ -101,6 +107,7 @@ class TmdbCastTest < Test::Unit::TestCase
 
   test "TmdbCast.new should raise error if supplied with raw data for cast member that doesn't exist" do
     Tmdb.expects(:api_call).with("person", {:id => "999999999999"}, nil).returns(nil)
+    Tmdb.expects(:api_call).with("person/999999999999/images", {}, nil).returns(nil)
     assert_raise ArgumentError do
       TmdbCast.new({"id" => 999999999999}, true)
     end

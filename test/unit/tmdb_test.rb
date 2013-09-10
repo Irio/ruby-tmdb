@@ -5,6 +5,7 @@ class TmdbTest < Test::Unit::TestCase
   def setup
     register_api_url_stubs
     @@old_default_language = Tmdb.default_language
+    Tmdb.rate_limit_time = 0
   end
 
   def teardown
@@ -17,6 +18,14 @@ class TmdbTest < Test::Unit::TestCase
     Tmdb.api_key = api_key
     assert_equal Tmdb.api_key, api_key
     Tmdb.api_key = old_api_key
+  end
+  
+  test "should allow setting and getting of rate_limit_time" do
+    old_rate_limit_time = Tmdb.rate_limit_time
+    rate_limit_time = 2
+    Tmdb.rate_limit_time = rate_limit_time
+    assert_equal Tmdb.rate_limit_time, rate_limit_time
+    Tmdb.rate_limit_time = old_rate_limit_time
   end
   
   test "language should default to 'en'" do

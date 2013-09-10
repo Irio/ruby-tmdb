@@ -4,6 +4,7 @@ class TmdbMovieTest < Test::Unit::TestCase
 
   def setup
     register_api_url_stubs
+    Tmdb.rate_limit_time = 0
   end
   
   test "search that returns no results should create empty array" do
@@ -118,6 +119,18 @@ class TmdbMovieTest < Test::Unit::TestCase
     assert_raise ArgumentError do
       TmdbMovie.new({"id" => 999999999999}, true)
     end
+  end
+
+  test "TmdbMovie.set_rating without a session id should set a rating and return a session id" do
+    response = TmdbMovie.set_rating("1", 7.9)
+    assert_equal response[:status_code], 1
+    assert_equal response[:session_id], "0c550fd5da2fc3f321ab3bs9b60ca108"
+  end
+
+  test "TmdbMovie.set_rating with a session id should set a rating and return the same session id" do
+    response = TmdbMovie.set_rating("1", 7.9, session_id: "1234")
+    assert_equal response[:status_code], 1
+    assert_equal response[:session_id], "1234"
   end
 
   private

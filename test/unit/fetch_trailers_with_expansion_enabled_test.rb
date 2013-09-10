@@ -3,6 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_helper.rb
 class FetchTrailersWithExpansionEnabled < Test::Unit::TestCase
   def setup
     register_api_url_stubs
+    Tmdb.rate_limit_time = 0
   end
 
   test "find with expansion enabled should return trailers" do

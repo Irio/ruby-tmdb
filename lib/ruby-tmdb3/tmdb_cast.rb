@@ -35,16 +35,21 @@ class TmdbCast
     end
   end
   
+  
   def self.new(raw_data, expand_results = false, language = nil)
     # expand the result by calling Person.getInfo unless :expand_results is set to false or the data is already complete
     # (as determined by checking for the 'birthday' property)
-    if(expand_results && !raw_data.has_key?("birthday"))
+    if(expand_results && (!raw_data.has_key?("posters") || !raw_data.has_key?("birthday")))
       begin
-        expanded_data = Tmdb.api_call("person", {:id => raw_data["id"].to_s}, language)
+        cast_id = raw_data["id"].to_s
+        raw_data = Tmdb.api_call("person", {:id => cast_id}, language)
+        @images_data = Tmdb.api_call("person/#{cast_id}/images", {}, language)
+        if raw_data
+          raw_data['posters'] = @images_data ? @images_data['profiles'] : []
+        end
       rescue RuntimeError => e
         raise ArgumentError, "Unable to fetch expanded info for Cast ID: '#{raw_data["id"]}'" if expanded_data.nil?
       end
-      raw_data = expanded_data
     end
     return Tmdb.data_to_object(raw_data)
   end
