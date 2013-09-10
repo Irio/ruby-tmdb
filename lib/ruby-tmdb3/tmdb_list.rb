@@ -11,8 +11,12 @@ class TmdbList
     attr_accessor *ATTRIBUTES
     
     def initialize(data)
-      ATTRIBUTES.each do |attr|
-        instance_variable_set("@#{attr}", data[attr.to_s])
+      begin
+        ATTRIBUTES.each do |attr|
+          instance_variable_set("@#{attr}", data[attr.to_s])
+        end
+      rescue
+        raise "no data for movie"
       end
     end
     
@@ -23,11 +27,11 @@ class TmdbList
     begin
       self.movies_data = data
       self.page = data["page"]
-      self.movies = data["results"].map{|r| TmdbList::Movie.new(r)}
+      self.movies = data["results"].map{|r| TmdbList::Movie.new(r) rescue nil}.compact
       self.total_pages = data["total_pages"]
       self.total_results = data["total_results"]
     rescue Exception => e
-      raise CorruptData, "Upcoming data wasn't in a structure we expected."
+      raise CorruptData, "Data wasn't in a structure we expected.\n #{e.message}\n #{e.backtrace}"
     end
   end
   
